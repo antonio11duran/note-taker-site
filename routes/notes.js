@@ -1,5 +1,5 @@
 const notes = require('express').Router();
-// const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const {
     readFromFile,
     readAndAppend,
@@ -12,29 +12,29 @@ notes.get('/', (req, res) => {
 });
 
 // get route for specific note
-// notes.get('/:notes_id', (req, res) => {
-//     const noteId = req.params.notes_id;
-//     readFromFile('./db/db.json')
-//         .then((data) => JSON.parse(data))
-//         .then((json) => {
-//             const result = json.filter((note) => note.notes_id === noteId);
-//             return result.length > 0
-//                 ? res.json(result)
-//                 : res.json('No note with that ID');
-//         });
-// });
+notes.get('/id', (req, res) => {
+    const noteId = req.params.notes_id;
+    readFromFile('./db/db.json')
+        .then((data) => JSON.parse(data))
+        .then((json) => {
+            const result = json.filter((note) => note.notes_id === noteId);
+            return result.length > 0
+                ? res.json(result)
+                : res.json('No note with that ID');
+        });
+});
 
-// // deleting from database
-// notes.delete('/:notes_id', (req, res) => {
-//     const noteId = req.params.notes_id;
-//     readFromFile('./db/db.json')
-//         .then((data) => JSON.parse(data))
-//         .then((json) => {
-//             const result = json.filter((note) => note.notes_id !== noteId);
-//             writeToFile('./db/db.json', result);
-//             res.json(`Item ${noteId} has been deleted 🗑️`)
-//         });
-// });
+// deleting from database
+notes.delete('/id', (req, res) => {
+    const noteId = req.params.notes_id;
+    readFromFile('./db/db.json')
+        .then((data) => JSON.parse(data))
+        .then((json) => {
+            const result = json.filter((note) => note.notes_id !== noteId);
+            writeToFile('./db/db.json', result);
+            res.json(`Item ${noteId} has been deleted 🗑️`)
+        });
+});
 
 // posting to database
 notes.post('/', (req, res) => {
@@ -46,7 +46,7 @@ notes.post('/', (req, res) => {
         const newNote = {
             title,
             text,
-            // notes_id: uuidv4(),
+            id: uuidv4(),
         };
 
         readAndAppend(newNote, './db/db.json');
