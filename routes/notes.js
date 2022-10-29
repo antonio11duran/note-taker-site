@@ -7,7 +7,7 @@ const {
 } = require('../helpers/fsUtils');
 
 // reading from database
-notes.get('*', (req, res) => {
+notes.get('/', (req, res) => {
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
@@ -37,7 +37,7 @@ notes.delete('/:notes_id', (req, res) => {
 });
 
 // posting to database
-notes.post('*', (req, res) => {
+notes.post('/', (req, res) => {
     console.log(req.body);
 
     const { title, text } = req.body;
