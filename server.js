@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const index = require('./routes/index');
 // const { clog } = require('./middleware/clog');
 
 const PORT = process.env.PORT || 3001;
@@ -21,7 +22,7 @@ app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, '../public/notes.html'))
 );
 
-require('./routes/index')(app);
+require('./routes/index')(index);
 
 app.listen(PORT, () =>
     console.log(`App listening at http://localhost:${PORT} 🚀`)
