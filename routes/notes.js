@@ -13,11 +13,11 @@ notes.get('/', (req, res) => {
 
 // get route for specific note
 notes.get('/:id', (req, res) => {
-    const noteId = req.params.notes_id;
+    const noteId = req.params.id;
     readFromFile('./db/db.json')
         .then((data) => JSON.parse(data))
         .then((json) => {
-            const result = json.filter((note) => note.notes_id === noteId);
+            const result = json.filter((note) => note.id === noteId);
             return result.length > 0
                 ? res.json(result)
                 : res.json('No note with that ID');
@@ -26,11 +26,11 @@ notes.get('/:id', (req, res) => {
 
 // deleting from database
 notes.delete('/:id', (req, res) => {
-    const noteId = req.params.notes_id;
+    const noteId = req.params.id;
     readFromFile('./db/db.json')
         .then((data) => JSON.parse(data))
         .then((json) => {
-            const result = json.filter((note) => note.notes_id !== noteId);
+            const result = json.filter((note) => note.id !== noteId);
             writeToFile('./db/db.json', result);
             res.json(`Item ${noteId} has been deleted 🗑️`)
         });
