@@ -11,30 +11,30 @@ notes.get('/', (req, res) => {
     readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
 });
 
-// get route for specific note
-notes.get('/:id', (req, res) => {
-    const noteId = req.params.id;
-    readFromFile('./db/notes.json')
-        .then((data) => JSON.parse(data))
-        .then((json) => {
-            const result = json.filter((note) => note.id === noteId);
-            return result.length > 0
-                ? res.json(result)
-                : res.json('No note with that ID');
-        });
-});
+// // get route for specific note
+// notes.get('/:id', (req, res) => {
+//     const noteId = req.params.id;
+//     readFromFile('./db/notes.json')
+//         .then((data) => JSON.parse(data))
+//         .then((json) => {
+//             const result = json.filter((note) => note.id === noteId);
+//             return result.length > 0
+//                 ? res.json(result)
+//                 : res.json('No note with that ID');
+//         });
+// });
 
-// deleting from database
-notes.delete('/:id', (req, res) => {
-    const noteId = req.params.id;
-    readFromFile('./db/notes.json')
-        .then((data) => JSON.parse(data))
-        .then((json) => {
-            const result = json.filter((note) => note.id !== noteId);
-            writeToFile('./db/notes.json', result);
-            res.json(`Item ${noteId} has been deleted 🗑️`)
-        });
-});
+// // deleting from database
+// notes.delete('/:id', (req, res) => {
+//     const noteId = req.params.id;
+//     readFromFile('./db/notes.json')
+//         .then((data) => JSON.parse(data))
+//         .then((json) => {
+//             const result = json.filter((note) => note.id !== noteId);
+//             writeToFile('./db/notes.json', result);
+//             res.json(`Item ${noteId} has been deleted 🗑️`)
+//         });
+// });
 
 // posting to database
 notes.post('/', (req, res) => {
