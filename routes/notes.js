@@ -8,33 +8,33 @@ const {
 
 // reading from database
 notes.get('/', (req, res) => {
-    readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
+    readFromFile('../db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
-// // get route for specific note
-// notes.get('/:id', (req, res) => {
-//     const noteId = req.params.id;
-//     readFromFile('./db/notes.json')
-//         .then((data) => JSON.parse(data))
-//         .then((json) => {
-//             const result = json.filter((note) => note.id === noteId);
-//             return result.length > 0
-//                 ? res.json(result)
-//                 : res.json('No note with that ID');
-//         });
-// });
+// get route for specific note
+notes.get('/:id', (req, res) => {
+    const noteId = req.params.id;
+    readFromFile('../db/db.json')
+        .then((data) => JSON.parse(data))
+        .then((json) => {
+            const result = json.filter((note) => note.id === noteId);
+            return result.length > 0
+                ? res.json(result)
+                : res.json('No note with that ID');
+        });
+});
 
-// // deleting from database
-// notes.delete('/:id', (req, res) => {
-//     const noteId = req.params.id;
-//     readFromFile('./db/notes.json')
-//         .then((data) => JSON.parse(data))
-//         .then((json) => {
-//             const result = json.filter((note) => note.id !== noteId);
-//             writeToFile('./db/notes.json', result);
-//             res.json(`Item ${noteId} has been deleted 🗑️`)
-//         });
-// });
+// deleting from database
+notes.delete('/:id', (req, res) => {
+    const noteId = req.params.id;
+    readFromFile('../db/db.json')
+        .then((data) => JSON.parse(data))
+        .then((json) => {
+            const result = json.filter((note) => note.id !== noteId);
+            writeToFile('../db/db.json', result);
+            res.json(`Item ${noteId} has been deleted 🗑️`)
+        });
+});
 
 // posting to database
 notes.post('/', (req, res) => {
@@ -49,7 +49,7 @@ notes.post('/', (req, res) => {
             id: uuidv4(),
         };
 
-        readAndAppend(newNote, './db/notes.json');
+        readAndAppend(newNote, '../db/db.json');
         res.json('Note added successfully 🚀')
     } else {
         res.errored('Error in adding new note');
