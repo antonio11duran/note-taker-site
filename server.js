@@ -8,7 +8,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api', api);
+app.use('/api/notes', api);
 app.use('/', html);
 
 app.use(express.static('public'));
