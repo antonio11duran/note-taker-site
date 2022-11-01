@@ -50,9 +50,9 @@ notes.post('/', (req, res) => {
         };
 
         readAndAppend(newNote, './db/db.json');
-        res.json('Note added successfully 🚀')
+        res.json('Note added successfully 🚀');
     } else {
-        res.errored('Error in adding new note');
+        res.error('Error in adding new note');
     }
 });
 
