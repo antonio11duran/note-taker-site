@@ -7,12 +7,12 @@ const {
 } = require('../helpers/fsUtils');
 
 // reading from database
-notes.get('/', (req, res) => {
+notes.get('/notes', (req, res) => {
     readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
 // get route for specific note
-notes.get('/:id', (req, res) => {
+notes.get('/notes/:id', (req, res) => {
     const noteId = req.params.id;
     readFromFile('./db/db.json')
         .then((data) => JSON.parse(data))
@@ -25,7 +25,7 @@ notes.get('/:id', (req, res) => {
 });
 
 // deleting from database
-notes.delete('/:id', (req, res) => {
+notes.delete('/notes/:id', (req, res) => {
     const noteId = req.params.id;
     readFromFile('./db/db.json')
         .then((data) => JSON.parse(data))
@@ -37,7 +37,7 @@ notes.delete('/:id', (req, res) => {
 });
 
 // posting to database
-notes.post('/', (req, res) => {
+notes.post('/notes', (req, res) => {
     console.log(req.body);
 
     const { title, text } = req.body;
